@@ -5,4 +5,4 @@ $LOAD_PATH.unshift(full_lib_dir) unless
 
 Dir["./spec/support/**/*.rb"].each { |f| require f }
 
-include Start_Spideroak
+#include StartSpideroak
