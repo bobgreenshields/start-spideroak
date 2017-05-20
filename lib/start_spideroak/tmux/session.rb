@@ -14,6 +14,10 @@ module StartSpideroak
 					raise ArgumentError, "badly formatted session string: #{session_string}"	
 				end
 			end
+
+			def name?(value)
+				@name == value	
+			end
 			
 		end
 	end

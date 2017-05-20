@@ -33,4 +33,22 @@ describe Tmux::Session do
 			expect(session.name).to eq "spideroak"
 		end
 	end
+
+	describe "#name?" do
+		subject(:session) { Tmux::Session.new("spideroak: 1 windows") }
+
+		context "when the value is the name from the session string" do
+			it "returns true" do
+				expect(session.name?("spideroak")).to be_truthy
+			end
+		end
+
+		context "when the value is not the name from the session string" do
+			it "returns false" do
+				expect(session.name?("blah")).to be_falsey
+			end
+		end
+
+		
+	end
 end
