@@ -3,7 +3,10 @@ require_relative "session"
 
 module StartSpideroak
 
-	class TmuxSessionCreateFailedError < RuntimeError
+	class TmuxError < RuntimeError
+	end
+
+	class TmuxSessionCreateFailedError < TmuxError
 	end
 
 	class Tmux
