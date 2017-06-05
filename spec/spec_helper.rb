@@ -10,22 +10,22 @@ Dir["./spec/support/**/*.rb"].each { |f| require f }
 class CmdRunnerMock
 
 	def self.success(message)
-		new([{s_out: message, s_err: "", exit_code: 0}])
+		new([{std_out: message, std_err: "", exit_code: 0}])
 	end
 
 	def self.failure(message)
-		new([{s_out: "", s_err: message, exit_code: 1}])
+		new([{std_out: "", std_err: message, exit_code: 1}])
 	end
 
-	attr_reader :s_out, :s_err, :exit_code
+	attr_reader :std_out, :std_err, :exit_code
 
 	def initialize(arg_array)
 		@reverse_arg_array = arg_array.reverse
 	end
 
 	def load_args(arg_hash)
-		@s_out = arg_hash[:s_out]
-		@s_err = arg_hash[:s_err]
+		@std_out = arg_hash[:std_out]
+		@std_err = arg_hash[:std_err]
 		@exit_code = arg_hash[:exit_code]
 	end
 

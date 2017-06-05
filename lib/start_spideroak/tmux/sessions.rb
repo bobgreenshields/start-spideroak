@@ -23,7 +23,7 @@ module StartSpideroak
 				@cmd_runner.call SESSIONS_CMD
 				@cmd_runner.on_failure { @sessions = [] }
 				@cmd_runner.on_success \
-					{ | cmd_runner | build_sessions_from_string(cmd_runner.s_out) }
+					{ | cmd_runner | build_sessions_from_string(cmd_runner.std_out) }
 			end
 
 			def build_sessions_from_string(sessions_string)
