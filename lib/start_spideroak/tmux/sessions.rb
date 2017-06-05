@@ -47,7 +47,7 @@ module StartSpideroak
 				load_sessions
 				unless include?(session_name)
 					raise TmuxSessionCreateFailedError,
-						"Tmux::Session::Create seemed to succeed" \
+						"Tmux::Session::Create seemed to succeed " \
 						"but a session called #{session_name} could not be found"
 				end
 			end
