@@ -1,13 +1,8 @@
 require_relative "cmd_runner"
 require_relative "session"
+require_relative "errors"
 
 module Tmux
-
-	class TmuxError < RuntimeError
-	end
-
-	class TmuxSessionCreateFailedError < TmuxError
-	end
 
 	class Sessions
 
