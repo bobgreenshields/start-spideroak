@@ -1,6 +1,6 @@
 require "start_spideroak/tmux/sessions"
 
-include StartSpideroak
+#include StartSpideroak
 
 describe Tmux::Sessions do
 	describe "#initialize" do
@@ -69,7 +69,7 @@ describe Tmux::Sessions do
 				]) }
 			let (:sessions) { Tmux::Sessions.new(cmd_mock) }
 			it "raises a TmuxSessionCreateFailedError" do
-				expect { sessions.create("test") }.to raise_error(TmuxSessionCreateFailedError)
+				expect { sessions.create("test") }.to raise_error(Tmux::TmuxSessionCreateFailedError)
 			end
 		end
 
@@ -81,7 +81,7 @@ describe Tmux::Sessions do
 				]) }
 			let (:sessions) { Tmux::Sessions.new(cmd_mock) }
 			it "raises a TmuxSessionCreateFailedError" do
-				expect { sessions.create("test") }.to raise_error(TmuxSessionCreateFailedError)
+				expect { sessions.create("test") }.to raise_error(Tmux::TmuxSessionCreateFailedError)
 			end
 		end
 
