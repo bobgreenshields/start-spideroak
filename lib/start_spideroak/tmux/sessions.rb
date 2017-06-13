@@ -20,6 +20,8 @@ module Tmux
 				{ | cmd_runner | build_sessions_from_string(cmd_runner.std_out) }
 		end
 
+		alias :reload_sessions :load_sessions
+
 		def build_sessions_from_string(sessions_string)
 			@sessions = sessions_string.split("\n").
 				map { | session_string | Tmux::Session.new(session_string) }
@@ -38,7 +40,7 @@ module Tmux
 		end
 
 		def check_new_session_exists(session_name)
-			load_sessions
+			reload_sessions
 			unless include?(session_name)
 				raise TmuxSessionCreateFailedError,
 					"Tmux::Session::Create seemed to succeed " \
