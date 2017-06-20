@@ -17,6 +17,11 @@ describe "Logging" do
 	end
 
 	context "when a logger is set on the Logging module" do
+		#without this the logger remains set when running multiple tests
+		after(:example) do
+			Logging.logger = nil
+		end
+
 		it "instances should send messages to that logger" do
 			log_dbl = double("logger")
 			expect(log_dbl).to receive :info

@@ -1,7 +1,5 @@
 require "start_spideroak/tmux/session"
 
-#include StartSpideroak
-
 describe Tmux::Session do
 	describe "#initialize" do
 

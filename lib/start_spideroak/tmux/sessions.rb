@@ -1,3 +1,4 @@
+require_relative "../logging"
 require_relative "cmd_runner"
 require_relative "session"
 require_relative "errors"
@@ -5,6 +6,8 @@ require_relative "errors"
 module Tmux
 
 	class Sessions
+
+		include Logging
 
 		SESSIONS_CMD = 'tmux list-sessions'
 
@@ -14,6 +17,7 @@ module Tmux
 		end
 
 		def load_sessions
+			logger.debug { "loading sessions in Tmux::Sessions" }
 			@cmd_runner.call SESSIONS_CMD
 			@cmd_runner.on_failure { @sessions = [] }
 			@cmd_runner.on_success \
