@@ -1,5 +1,5 @@
 module Tmux
-	module Logger
+	module Logging
 		class NullLogger
 			def unknown(*); end
 			def debug(*); end
