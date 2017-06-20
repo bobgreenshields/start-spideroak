@@ -1,5 +1,5 @@
-module StartSpideroak
-	class Tmux
+module Tmux
+	module Logger
 		class NullLogger
 			def unknown(*); end
 			def debug(*); end
