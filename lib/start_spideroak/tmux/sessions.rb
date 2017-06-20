@@ -32,6 +32,7 @@ module Tmux
 		end
 
 		def include?(session_name)
+			reload_sessions
 			@sessions.any? { | session | session.name?(session_name) }
 		end
 
@@ -44,7 +45,7 @@ module Tmux
 		end
 
 		def check_new_session_exists(session_name)
-			reload_sessions
+			# sessions reloaded on a call to #include?
 			unless include?(session_name)
 				raise TmuxSessionCreateFailedError,
 					"Tmux::Session::Create seemed to succeed " \
