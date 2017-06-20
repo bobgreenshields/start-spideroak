@@ -1,3 +1,5 @@
+require 'logger'
+
 module Tmux
 	module Logging
 		class NullLogger
@@ -10,11 +12,17 @@ module Tmux
 		end
 
 		class << self
-			attr_writer :logger
+			def logger=(new_logger)
+				@logger = new_logger
+			end
 
 			def logger
 				@logger ||= NullLogger.new
 			end
+		end
+
+		def logger
+			Logging.logger
 		end
 	end
 end
