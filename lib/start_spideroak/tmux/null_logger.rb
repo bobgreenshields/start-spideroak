@@ -8,5 +8,13 @@ module Tmux
 			def error(*); end
 			def fatal(*); end
 		end
+
+		class << self
+			attr_writer :logger
+
+			def logger
+				@logger ||= NullLogger.new
+			end
+		end
 	end
 end
