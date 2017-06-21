@@ -1,4 +1,4 @@
-require "start_spideroak/tmux/app"
+require "tmux/app"
 
 describe Tmux::App do
 	describe "#include_session?" do

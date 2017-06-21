@@ -1,4 +1,4 @@
-require "start_spideroak/tmux/sessions"
+require "tmux/sessions"
 
 #include StartSpideroak
 

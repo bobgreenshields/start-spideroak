@@ -1,4 +1,4 @@
-require "start_spideroak/logging"
+require "logging"
 
 class LogTest
 	include Logging

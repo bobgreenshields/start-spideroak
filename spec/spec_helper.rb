@@ -5,8 +5,6 @@ $LOAD_PATH.unshift(full_lib_dir) unless
 
 Dir["./spec/support/**/*.rb"].each { |f| require f }
 
-#include StartSpideroak
-
 class CmdRunnerMock
 
 	def self.success(message, occurs: 1, cmd_spy: nil)

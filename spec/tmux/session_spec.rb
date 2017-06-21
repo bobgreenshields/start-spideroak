@@ -1,4 +1,4 @@
-require "start_spideroak/tmux/session"
+require "tmux/session"
 
 describe Tmux::Session do
 	describe "#initialize" do
