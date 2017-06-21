@@ -9,25 +9,26 @@ Dir["./spec/support/**/*.rb"].each { |f| require f }
 
 class CmdRunnerMock
 
-	def self.success(message, occurs: 1)
+	def self.success(message, occurs: 1, cmd_spy: nil)
 		arg_array = []
 		occurs.times do
 			arg_array << {std_out: message, std_err: "", exit_code: 0}
 		end
-		new(arg_array)
+		new(arg_array, cmd_spy: cmd_spy)
 	end
 
-	def self.failure(message, occurs: 1)
+	def self.failure(message, occurs: 1, cmd_spy: nil)
 		arg_array = []
 		occurs.times do
 			arg_array << {std_out: "", std_err: message, exit_code: 1}
 		end
-		new(arg_array)
+		new(arg_array, cmd_spy: cmd_spy)
 	end
 
 	attr_reader :std_out, :std_err, :exit_code
 
-	def initialize(arg_array)
+	def initialize(arg_array, cmd_spy: nil)
+		@cmd_spy = cmd_spy
 		@reverse_arg_array = arg_array.reverse
 	end
 
@@ -42,6 +43,7 @@ class CmdRunnerMock
 	end
 
 	def call(command)
+		@cmd_spy.call(command) if @cmd_spy
 		load_args(@reverse_arg_array.pop || unexpected_call)
 	end
 
