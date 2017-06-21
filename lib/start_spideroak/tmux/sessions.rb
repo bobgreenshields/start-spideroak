@@ -37,6 +37,7 @@ module Tmux
 		end
 
 		def create(session_name)
+			# sessions reloaded on a call to #include?
 			return if include?(session_name)
 			@cmd_runner.call("tmux new-session -d -s #{session_name}")
 			@cmd_runner.on_failure { raise TmuxSessionCreateFailedError,

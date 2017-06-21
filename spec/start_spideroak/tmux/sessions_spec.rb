@@ -25,7 +25,7 @@ describe Tmux::Sessions do
 
 	describe "#include?" do
 		context "when one of the tmux sessions has that name" do
-			let (:cmd_mock) { CmdRunnerMock.success("guake: 1 windows\nnext: 2 windows") }
+			let (:cmd_mock) { CmdRunnerMock.success("guake: 1 windows\nnext: 2 windows", occurs: 2) }
 			let (:sessions) { Tmux::Sessions.new(cmd_mock) }
 
 			it "returns true" do
@@ -34,7 +34,7 @@ describe Tmux::Sessions do
 		end
 
 		context "when none of the tmux sessions have that name" do
-			let (:cmd_mock) { CmdRunnerMock.success("guake: 1 windows\nnext: 2 windows") }
+			let (:cmd_mock) { CmdRunnerMock.success("guake: 1 windows\nnext: 2 windows", occurs: 2) }
 			let (:sessions) { Tmux::Sessions.new(cmd_mock) }
 
 			it "returns false" do
@@ -43,7 +43,7 @@ describe Tmux::Sessions do
 		end
 
 		context "when there are no tmux sessions" do
-			let (:cmd_mock) { CmdRunnerMock.failure("failed to connect to server: Connection refused\n") }
+			let (:cmd_mock) { CmdRunnerMock.failure("failed to connect to server: Connection refused\n", occurs: 2) }
 			let (:sessions) { Tmux::Sessions.new(cmd_mock) }
 
 			it "returns false" do
@@ -54,7 +54,7 @@ describe Tmux::Sessions do
 
 	describe "#create" do
 		context "when the session already exists" do
-			let (:cmd_mock) { CmdRunnerMock.success("guake: 1 windows\nnext: 2 windows") }
+			let (:cmd_mock) { CmdRunnerMock.success("guake: 1 windows\nnext: 2 windows", occurs: 2) }
 			let (:sessions) { Tmux::Sessions.new(cmd_mock) }
 
 			it "does nothing" do
@@ -64,6 +64,7 @@ describe Tmux::Sessions do
 
 		context "when session creation fails" do
 			let (:cmd_mock) { CmdRunnerMock.new([
+				{std_out: "guake: 1 windows", std_err: "", exit_code: 0},
 				{std_out: "guake: 1 windows", std_err: "", exit_code: 0},
 				{std_out: "", std_err: "", exit_code: 5}
 				]) }
@@ -76,6 +77,7 @@ describe Tmux::Sessions do
 		context "when session creation succeeds but the session cannot be found" do
 			let (:cmd_mock) { CmdRunnerMock.new([
 				{std_out: "guake: 1 windows", std_err: "", exit_code: 0},
+				{std_out: "guake: 1 windows", std_err: "", exit_code: 0},
 				{std_out: "", std_err: "", exit_code: 0},
 				{std_out: "guake: 1 windows", std_err: "", exit_code: 0}
 				]) }
@@ -87,6 +89,7 @@ describe Tmux::Sessions do
 
 		context "when session creation works and the new session can be found" do
 			let (:cmd_mock) { CmdRunnerMock.new([
+				{std_out: "guake: 1 windows", std_err: "", exit_code: 0},
 				{std_out: "guake: 1 windows", std_err: "", exit_code: 0},
 				{std_out: "", std_err: "", exit_code: 0},
 				{std_out: "guake: 1 windows\ntest: 2 windows", std_err: "", exit_code: 0}

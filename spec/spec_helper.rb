@@ -9,12 +9,20 @@ Dir["./spec/support/**/*.rb"].each { |f| require f }
 
 class CmdRunnerMock
 
-	def self.success(message)
-		new([{std_out: message, std_err: "", exit_code: 0}])
+	def self.success(message, occurs: 1)
+		arg_array = []
+		occurs.times do
+			arg_array << {std_out: message, std_err: "", exit_code: 0}
+		end
+		new(arg_array)
 	end
 
-	def self.failure(message)
-		new([{std_out: "", std_err: message, exit_code: 1}])
+	def self.failure(message, occurs: 1)
+		arg_array = []
+		occurs.times do
+			arg_array << {std_out: "", std_err: message, exit_code: 1}
+		end
+		new(arg_array)
 	end
 
 	attr_reader :std_out, :std_err, :exit_code
