@@ -8,6 +8,8 @@ CODE_CANNOT_WRITE_TO_LOG_DIR = 12
 
 LOG_DIR = '/var/log/spideroak'
 LOG_FILE_NAME = 'spideroak.log'
+LOGGER = Logger.new(STDOUT)
+LOG_LEVEL = Logger::DEBUG
 
 #SPIDEROAK_TMUX_SESSION_NAME = "spideroak"
 SPIDEROAK_TMUX_SESSION_NAME = "test"
@@ -45,7 +47,7 @@ def tmux
 	@tmux ||= Tmux::App.new
 end
 
-def stop_spider_oak
+def stop_spideroak
 	tmux.send_keys_to_session(keys: "C-c", session: SPIDEROAK_TMUX_SESSION_NAME)
 end
 
@@ -54,8 +56,10 @@ def wait_a_second
 end
 
 def set_up_logging
-	Logging.logger = Logger.new(STDOUT)
-	Logging.logger.level = Logger::DEBUG
+	#Logging.logger = Logger.new(STDOUT)
+	#Logging.logger.level = Logger::DEBUG
+	Logging.logger = LOGGER
+	Logging.logger.level = LOG_LEVEL
 	Logging.logger.debug { "logger set up" }
 end
 
@@ -75,7 +79,7 @@ exit_unless_log_dir_exists
 exit_if_cannot_write_to_log_dir
 set_up_logging
 begin
-	stop_spider_oak
+	stop_spideroak
 	wait_a_second
 	start_spideroak
 rescue StandardError => e
