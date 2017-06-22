@@ -13,7 +13,7 @@ module Tmux
 
 		def success?
 			@exit_code == 0
-			end
+		end
 
 		def on_success
 			yield self if success?
