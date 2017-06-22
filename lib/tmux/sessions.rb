@@ -17,7 +17,7 @@ module Tmux
 		end
 
 		def load_sessions
-			logger.debug { "loading sessions in Tmux::Sessions" }
+			logger.debug { "Sessions#load_sessions: loading sessions in Tmux::Sessions" }
 			@cmd_runner.call SESSIONS_CMD
 			@cmd_runner.on_failure { @sessions = [] }
 			@cmd_runner.on_success \
@@ -39,6 +39,7 @@ module Tmux
 		def create(session_name)
 			# sessions reloaded on a call to #include?
 			return if include?(session_name)
+			logger.debug { "Sessions#create creating a new session called #{session_name}" }
 			@cmd_runner.call("tmux new-session -d -s #{session_name}")
 			@cmd_runner.on_failure { raise TmuxSessionCreateFailedError,
 				"Tmux::Sessions#create failed to create a session called #{session_name}" }

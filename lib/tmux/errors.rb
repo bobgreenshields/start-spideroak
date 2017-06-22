@@ -6,4 +6,7 @@ module Tmux
 	class TmuxSessionCreateFailedError < TmuxError
 	end
 
+	class TmuxExecutableNotInstalledError < TmuxError
+	end
+
 end

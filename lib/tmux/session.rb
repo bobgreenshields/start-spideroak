@@ -9,13 +9,13 @@ module Tmux
 		@@session_regex = /^(?<sessionname>\S+):.*$/
 
 		def initialize(session_string)
-			logger.debug { "looking for a session called #{session_string}" }
+			logger.debug { "Session#initialize trying to match a session name in #{session_string}" }
 			match = @@session_regex.match(session_string)
 			if match
-				logger.debug { "session called #{session_string} has been found" }
+				logger.debug { "Session#initialize successfully matched #{match[:sessionname]}" }
 				@name = match[:sessionname]
 			else
-				logger.fatal { "session called #{session_string} could not be found" }
+				logger.fatal { "Session#initialize could not match a session name in #{session_string}" }
 				raise ArgumentError, "badly formatted session string: #{session_string}"	
 			end
 		end
